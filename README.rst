@@ -50,6 +50,25 @@ To run all tests in phantomjs in glorious 4K resolution: ::
 Failed tests and tests that encounter an error will save a screenshot in the current working directory.
 
 
+
+Extra arguments
+---------------
+
+Some test suites might make use of extra arguments (e.g. to provide user account credentials).
+These can be given using the ``-ea`` or ``--extra-arg`` parameter. For example: ::
+
+  seleniumtesting http://localhost ns.some.test -ea labels login "Login Button" -ea users testuser testuserpwd
+
+The arguments will be passed to ``suite`` as extra_args. Make sure to instantiate your ``BrowserTestCase`` subclass with ``extra_args`` as well. You will then be able to read the args in the test from ``self.extra_args``.
+
+For the example provided above, ``self.extra_args`` will look like this: ::
+
+  {
+      'labels': { 'login':    'Login Button' },
+      'users':  { 'testuser': 'testuserpwd'  }
+  }
+
+
 Contribute
 ----------
 
