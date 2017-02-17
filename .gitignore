@@ -104,3 +104,9 @@ pip-selfcheck.json
 
 # Rope project settings
 .ropeproject
+
+
+screenshot_*
+selenium/
+.dir-locals.el
+.arcconfig
