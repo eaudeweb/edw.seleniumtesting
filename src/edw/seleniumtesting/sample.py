@@ -4,10 +4,10 @@ from edw.seleniumtesting.common import BrowserTestCase
 
 
 def suite(browser, base_url, extra_args):
-    """ Run with https://google.com/ncr and -ea text "Google Search"
+    """ Run with `https://google.com/ncr -ea labels search "Google Search"`
     """
     # setup a new suite
-    suite = unittest.TestSuite()
+    test_suite = unittest.TestSuite()
 
     # Iterate over defined tests and add them to the suite.
     # This is useful if you want to run the same tests on
@@ -21,9 +21,9 @@ def suite(browser, base_url, extra_args):
 
     for name in GoogleTestCase.my_tests():
         testcase = GoogleTestCase(name, browser, base_url, extra_args)
-        suite.addTest(testcase)
+        test_suite.addTest(testcase)
 
-    return suite
+    return test_suite
 
 
 class GoogleTestCase(BrowserTestCase):
@@ -34,6 +34,7 @@ class GoogleTestCase(BrowserTestCase):
     def test_search_button_exists(self):
         """ 'Google Search' button exists.
         """
-        selector = '//*[@value="{}"]'.format(self.extra_args['text'])
+        button_label = self.extra_args['labels']['search']
+        selector = '//*[@value="{}"]'.format(button_label)
         elements = self.browser.find_elements_by_xpath(selector)
         self.assertGreater(len(elements), 0)
