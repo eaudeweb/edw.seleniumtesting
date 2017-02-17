@@ -5,18 +5,21 @@ from setuptools import find_packages
 from setuptools import setup
 
 
-long_description = '\n\n'.join([
+LONG_DESCRIPTION = '\n\n'.join([
     open('README.rst').read(),
     open('CONTRIBUTORS.rst').read(),
     open('CHANGES.rst').read(),
 ])
 
 
+VERSION = '1.0'
+
+
 setup(
     name='edw.seleniumtesting',
-    version='1.0a1',
+    version=VERSION,
     description="Selenium testing metapackage",
-    long_description=long_description,
+    long_description=LONG_DESCRIPTION,
     # Get more from https://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
         "Programming Language :: Python",
