@@ -9,7 +9,8 @@ def run(base_url,
         resolution=(1024, 768),
         verbosity=1,
         browser='chrome',
-        browser_path=None):
+        browser_path=None,
+        extra_args={}):
 
     browser = util.get_browser(browser, browser_path)
     browser.set_window_size(*resolution)
@@ -19,7 +20,7 @@ def run(base_url,
         resultclass=common.BrowserTestResult
     )
 
-    test_suite = suite(browser, base_url)
+    test_suite = suite(browser, base_url, extra_args)
     test_runner.run(test_suite)
 
     browser.quit()
@@ -38,7 +39,8 @@ def run_cli():
             resolution=(args.screenwidth, args.screenheight),
             verbosity=args.verbose,
             browser=args.browser,
-            browser_path=args.browserpath)
+            browser_path=args.browserpath,
+            extra_args=dict(args.extra_arg))
 
 if __name__ == '__main__':
     run_cli()

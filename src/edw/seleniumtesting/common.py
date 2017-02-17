@@ -11,10 +11,13 @@ class BrowserTestCase(unittest.TestCase):
     browser = None
     url = None
 
-    def __init__(self, methodName, browser: WebDriver, url: str):
+    def __init__(
+            self, methodName, browser: WebDriver, url: str,
+            extra_args={}):
         super().__init__(methodName)
         self.browser = browser
         self.url = url
+        self.extra_args = extra_args
 
     @classmethod
     def my_tests(cls):

@@ -78,4 +78,14 @@ def build_cli_arguments() -> argparse.ArgumentParser:
         help='Screen height. Default: 768.'
     )
 
+    parser.add_argument(
+        '-ea', '--extra-arg', nargs=2, action='append',
+        default=[],
+        help=(
+            'Extra arguments passed to suite.\n'
+            'You can use this to pass in user credentials or \n'
+            'any other dynamic data that can\'t live with the test code.'
+        )
+    )
+
     return parser

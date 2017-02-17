@@ -3,8 +3,8 @@ import unittest
 from edw.seleniumtesting.common import BrowserTestCase
 
 
-def suite(browser, base_url):
-    """ Run with https://google.com/ncr to avoid language change.
+def suite(browser, base_url, extra_args):
+    """ Run with https://google.com/ncr and -ea text "Google Search"
     """
     # setup a new suite
     suite = unittest.TestSuite()
@@ -20,7 +20,7 @@ def suite(browser, base_url):
     #        suite.addTest(GoogleTestCase(name, browser, result.url)
 
     for name in GoogleTestCase.my_tests():
-        testcase = GoogleTestCase(name, browser, base_url)
+        testcase = GoogleTestCase(name, browser, base_url, extra_args)
         suite.addTest(testcase)
 
     return suite
@@ -34,7 +34,6 @@ class GoogleTestCase(BrowserTestCase):
     def test_search_button_exists(self):
         """ 'Google Search' button exists.
         """
-        selector = '//*[@value="Google Search"]'
+        selector = '//*[@value="{}"]'.format(self.extra_args['text'])
         elements = self.browser.find_elements_by_xpath(selector)
         self.assertGreater(len(elements), 0)
-
