@@ -10,7 +10,7 @@ Installation
 This package requires **Python 3.5**!
 ::
 
-    $ pip install -U https://github.com/eaudeweb/edw.seleniumtesting/archive/master.zip
+    $ pip install edw.seleniumtesting
     $ seleniumtesting -h
 
 
