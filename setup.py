@@ -12,7 +12,7 @@ LONG_DESCRIPTION = '\n\n'.join([
 ])
 
 
-VERSION = '1.1.dev0'
+VERSION = '1.1'
 
 
 setup(
