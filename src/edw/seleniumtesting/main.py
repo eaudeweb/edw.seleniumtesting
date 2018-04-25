@@ -11,9 +11,10 @@ def run(base_url,
         verbosity=1,
         browser='chrome',
         browser_path=None,
+        browser_args=tuple(),
         extra_args={}):
 
-    browser = util.get_browser(browser, browser_path)
+    browser = util.get_browser(browser, browser_path, browser_args)
     browser.set_window_size(*resolution)
 
     test_runner = unittest.TextTestRunner(
@@ -48,6 +49,7 @@ def run_cli():
             verbosity=args.verbose,
             browser=args.browser,
             browser_path=args.browserpath,
+            browser_args=tuple(args.browserargs),
             extra_args=extra_args)
 
 if __name__ == '__main__':

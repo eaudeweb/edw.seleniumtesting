@@ -50,6 +50,13 @@ To run all tests in phantomjs in glorious 4K resolution: ::
 Failed tests and tests that encounter an error will save a screenshot in the current working directory.
 
 
+Browser arguments
+-----------------
+
+Supported for Chrome and Firefox. Can be provided using ``-A``. For example, to run Chrome with the ``--headless`` option: ::
+
+    $ seleniumtesting -v -B chrome -P /usr/lib/chromium-browser/chromedriver -A='--headless' https://localhost
+
 
 Extra arguments
 ---------------

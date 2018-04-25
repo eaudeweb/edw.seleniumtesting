@@ -1,3 +1,4 @@
+from functools import partial
 import argparse
 from pkg_resources import iter_entry_points
 
@@ -5,12 +6,12 @@ from selenium import webdriver
 
 
 DRIVERS = {
-    'chrome': webdriver.Chrome,
-    'firefox': webdriver.Firefox,
-    'phantomjs': webdriver.PhantomJS,
-    'edge': webdriver.Edge,
-    'ie': webdriver.Ie,
-    'safari': webdriver.Safari,
+    'chrome': (webdriver.Chrome, webdriver.ChromeOptions),
+    'firefox': (webdriver.Firefox, webdriver.FirefoxOptions),
+    'phantomjs': (webdriver.PhantomJS, None),
+    'edge': (webdriver.Edge, None),
+    'ie': (webdriver.Ie, None),
+    'safari': (webdriver.Safari, None),
 }
 
 
@@ -26,8 +27,13 @@ for entry_point in iter_entry_points(group='edw.seleniumtesting', name=None):
     ARG_TESTS[entry_point.name] = entry_point.load()
 
 
-def get_browser(name, path=None):
-    browser = DRIVERS[name]
+def get_browser(name, path=None, args=tuple()):
+    browser, opts = DRIVERS[name]
+    if opts and args:
+        options = opts()
+        for arg in args:
+            options.add_argument(arg)
+        browser = partial(browser, options=options)
     return browser(executable_path=path) if path else browser()
 
 
@@ -66,6 +72,10 @@ def build_cli_arguments() -> argparse.ArgumentParser:
     parser.add_argument(
         '-P', '--browserpath', default=None,
         help='Custom path to browser executable.'
+    )
+    parser.add_argument(
+        '-A', '--browserargs', nargs='*', default=[],
+        help='Call browser with arguments. Only Chrome and Firefox supported.'
     )
 
     parser.add_argument(
